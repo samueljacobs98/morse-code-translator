@@ -1,0 +1,25 @@
+@use "./variables" as *;
+
+body {
+    background-color: $main-colour;
+  
+    font-family: $font-family;
+    color: $secondary-colour;
+
+    .header {
+        margin: 0.5rem;
+    }
+    .translator {
+        padding: 0.5rem;
+        border-radius: 0.5rem;
+
+        text-align: center;
+        .translator__legend {
+            padding: 0 0.25rem;
+        }
+
+        .translator__translate-english {
+            margin: 0.5rem;
+        }
+    }
+}
