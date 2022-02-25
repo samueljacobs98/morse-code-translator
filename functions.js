@@ -1,4 +1,4 @@
-export const getIndividualMorse = (input) => {
+export const getIndividualMorse = (input, toEnglish) => {
   const morseLettersObj = {
     a: ".-",
     b: "-...",
@@ -37,7 +37,9 @@ export const getIndividualMorse = (input) => {
     8: "---..",
     9: "----.",
   };
-  return morseLettersObj[input.toLowerCase()];
+  return toEnglish
+    ? morseLettersObj[input.toLowerCase()]
+    : Object.keys(morseLettersObj).find((key) => morseLettersObj[key] == input);
 };
 
 export const stringToArray = (inputString) => {
@@ -62,13 +64,18 @@ export const translateStringToMorse = (inputString) => {
   ) {
     return;
   } else if (inputString.length === 1) {
-      console.log(inputString)
-    return getIndividualMorse(inputString);
+    return getIndividualMorse(inputString, true);
   }
   const unfilteredArray = stringToArray(inputString);
   const filteredArray = cleanArray(unfilteredArray);
   const morseArray = filteredArray.map((value) => {
-    return getIndividualMorse(value);
+    return getIndividualMorse(value, true);
   });
   return arrayToString(morseArray);
+};
+
+export const translateMorseToString = (inputMorse) => {
+  //Trim the input
+  // if trimmed input does not contain a space
+  // get Individual English value
 };

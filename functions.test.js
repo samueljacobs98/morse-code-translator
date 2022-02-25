@@ -4,23 +4,24 @@ import {
   cleanArray,
   arrayToString,
   translateStringToMorse,
+  translateMorseToString
 } from "./functions.js";
 import { expect, it, describe } from "@jest/globals";
 
 describe("should translate an alphabetic to morse", () => {
   it("a should translate to .-", () => {
-    const result = getIndividualMorse("a");
+    const result = getIndividualMorse("a", true);
     expect(result).toBe(".-");
   });
   it("A should translate to .-", () => {
-    const result = getIndividualMorse("A");
+    const result = getIndividualMorse("A", true);
     expect(result).toBe(".-");
   });
 });
 
 describe("should translate a numeric to morse", () => {
   it("1 should translate to .----", () => {
-    const result = getIndividualMorse("1");
+    const result = getIndividualMorse("1", true);
     expect(result).toBe(".----");
   });
 });
@@ -64,3 +65,25 @@ describe("should translate a string to morse", () => {
     expect(result).toBe(".- - ----. .- --");
   });
 });
+
+describe("should translate a morse to an alphabetic", () => {
+  it("a should translate to .-", () => {
+    const result = getIndividualMorse(".-", false);
+    expect(result).toBe("a");
+  });
+});
+
+// describe("should translate a morse string to an english string", () => {
+//   it('should translate ".-" to "a', () => {
+//     const result = translateStringToMorse(".-");
+//     expect(result).toBe("a");
+//   });
+//   it('should translate "----." to "9', () => {
+//     const result = translateStringToMorse("----.");
+//     expect(result).toBe("9");
+//   });
+//   it('should translate ".- - ----. .- --" to "at9am" ', () => {
+//     const result = translateStringToMorse(".- - ----. .- --");
+//     expect(result).toBe("at9am");
+//   });
+// })
