@@ -46,7 +46,7 @@ export const stringToArray = (inputString) => {
   return inputString.split("");
 };
 
-export const cleanArray = (unfilteredArray) => {
+export const cleanEnglishArray = (unfilteredArray) => {
   const filteredArray = unfilteredArray.filter((value) =>
     value.match(/^[0-9a-zA-Z]+$/)
   );
@@ -67,15 +67,58 @@ export const translateStringToMorse = (inputString) => {
     return getIndividualMorse(inputString, true);
   }
   const unfilteredArray = stringToArray(inputString);
-  const filteredArray = cleanArray(unfilteredArray);
+  const filteredArray = cleanEnglishArray(unfilteredArray);
   const morseArray = filteredArray.map((value) => {
     return getIndividualMorse(value, true);
   });
   return arrayToString(morseArray);
 };
 
+export const morseStringToArray = (inputMorseString) => {
+  // console.log(inputMorseString.split(" "))
+  return inputMorseString.split(" ");
+};
+
+const cleanedMorseStringArr = (stringArr) => {
+  const cleanedStringArr = stringArr.filter((value) => {
+    if (value === "." || value === "-" || value === " ") {
+      return value;
+    }
+  });
+  return cleanedStringArr
+};
+
+const cleanMorseArray = (unfilteredArray) => {
+    const subfilteredArray = unfilteredArray.map(element => {
+        const splitElement = element.split("")
+        const cleanedSplitElement = cleanedMorseStringArr(splitElement)
+        return cleanedSplitElement.join("")
+    })
+    const filteredArray = subfilteredArray.filter(element => {
+        if(element) {
+             return element
+            }
+        })
+        // console.log(filteredArray)
+  return filteredArray;
+};
+
 export const translateMorseToString = (inputMorse) => {
-  //Trim the input
-  // if trimmed input does not contain a space
-  // get Individual English value
+  const trimmedMorse = inputMorse.trim();
+  if (
+    inputMorse.length === 0 
+    ||
+    (!inputMorse.match(/[.]|[-]/))
+  ) {
+    return;
+  }
+  const unfilteredArray = morseStringToArray(inputMorse);
+  const filteredArray = cleanMorseArray(unfilteredArray)
+  const englishArray = filteredArray.map((value) => {
+    // console.log(value)
+    // console.log(getIndividualMorse(trimmedMorse, false))
+    return getIndividualMorse(trimmedMorse, false);
+  });
+  console.log(englishArray)
+  return arrayToString(englishArray);
 };
